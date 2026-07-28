@@ -1,0 +1,25 @@
+[Unit]
+Description=Human clipboard typer (X11 hotkey F8)
+Documentation=file:///home/vk_lx/Desktop/MY_STUFF/human-typer/README.md
+After=graphical-session.target
+Wants=graphical-session.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+WorkingDirectory=%h/Desktop/MY_STUFF/human-typer
+ExecStart=%h/Desktop/MY_STUFF/human-typer/run.sh
+Restart=always
+RestartSec=3
+
+# Quotes are REQUIRED — systemd splits unquoted values on spaces
+Environment="HUMAN_TYPER_ARGS=--delay 2.5 --wpm 58 --mistake-prob 0.02"
+
+PassEnvironment=DISPLAY XAUTHORITY
+
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=human-typer
+
+[Install]
+WantedBy=default.target
